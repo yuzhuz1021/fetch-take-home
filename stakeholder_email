@@ -1,0 +1,40 @@
+Hi [Stakeholder Name],
+
+I've completed an initial analysis of the receipts, users, and brands data. I've created a relational data model and developed SQL queries to answer key business questions (all documented in [link to your repo]). This email summarizes my findings from a data quality assessment, along with some questions and recommendations.
+
+What's Working Well:
+We have valuable data on 1,119 receipts, 6,941 receipt items, 212 users, and 1,167 brands. This includes useful information like user login times, brand categories, receipt totals, and item details, providing a good foundation for understanding user behavior and brand performance.
+
+Key Data Quality Concerns:
+While the data structure is promising, I've identified several data quality issues that could impact the accuracy of our reports and analyses. These primarily fall into three categories:
+1. Brand Matching Issues:  A significant concern is a mismatch between brandCode values in the receipt items and the Brands data.  I found 186 brandCode values in receipts that don't exist in the Brands data, affecting 1,971 receipt items. This limits our ability to accurately link purchases to specific brands.
+2. Missing and Inconsistent Data:  We have numerous missing values in key fields across all three datasets (Receipts, Users, and Brands).  For example, many receipts are missing details in the rewardsReceiptItemList (like barcode, brandCode, description, finalPrice, itemPrice), and several receipts are missing information on bonus points and processing dates. User data is missing some lastLogin and state information, and Brand data lacks categoryCode, brandCode, and category in many cases. We also see inconsistencies, like variations in rewardsReceiptStatus values and variations in user States. These gaps and inconsistencies hinder our ability to analyze bonus programs, receipt processing, user activity, and brand categorization accurately.
+3. Duplicated Data: There exists duplicated user data in Users file.
+
+Questions and Information Needed:
+To address these issues and improve data accuracy, I need some clarification and additional information. I've grouped these needs into a few key areas:
+1. Data Definitions and Documentation:
+  a. Is there a comprehensive data dictionary defining all fields, their meanings, and expected values?
+  b. Can we get a list of valid values and their definitions for bonusPointsEarnedReason and rewardsReceiptStatus?
+  c. What's the intended relationship between barcode, userFlaggedBarcode, and brandCode?
+  d. Can you define originalReceiptItemText, preventTargetGapPoints, and partnerItemId?
+2. Data Sources and Processes:
+  a. What systems generate this data, and are there any known data entry or collection issues?
+  b. Are there known reasons for the high number of missing values?
+  c. How does the Brands data relate to the cpg field? Is there a separate CPG dataset?
+  d. What process leads to user deactivation (active = false)?
+  e. What is the root cause of the brandCode mismatch between receipt items and the Brands data, and what's the correct relationship?
+3. Data Cleaning Plan: What is the plan for data cleaning? Like removing, imputing, or keeping null value.
+4. Optimization and Future Planning:
+  a. Business Priorities: Which key business questions are most important to answer?
+  b. Data Volume/Frequency: What are the expected data volumes and update frequencies?
+  c. Reporting Requirements: What reports and dashboards will be needed?
+  d. Integration Requirements: Will this data be integrated with other systems?
+
+Performance and Scaling:
+As the data grows, the volume of receipt items and complex queries could lead to performance issues. I've taken steps to address this by normalizing the data (creating a separate ReceiptItems table).  I'll also use indexing, query optimization, and consider data archiving. Future considerations include partitioning and materialized views if necessary.
+
+I'm ready to discuss these findings and collaborate on improving our data quality. Please let me know when you're available.
+
+Thanks,
+Yuzhu
